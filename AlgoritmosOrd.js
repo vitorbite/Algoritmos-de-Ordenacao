@@ -1,4 +1,4 @@
-const lista = [2, 3, 4, 1, 7, 8, 2];
+const lista = [0, 1, 7, 4, 43, 1, 32, -2, 2, 3, 2, 1, 6, -3, 5, 0];
 
 function selectionSort(lista) {
   const tamanho = lista.length;
@@ -21,8 +21,8 @@ function selectionSort(lista) {
 
 function bubbleSort(lista) {
   const tamanho = lista.length;
-  for (i = 0; i < tamanho - 1; i++) {
-    for (let j = 0; j < tamanho - 1; j++) {
+  for (i = 0; i < tamanho - 2; i++) {
+    for (let j = 0; j < tamanho - 1 - i; j++) {
       if (lista[j] > lista[j + 1]) {
         const temp = lista[j];
         lista[j] = lista[j + 1];
@@ -40,9 +40,48 @@ function insertionSort(lista) {
     while (j >= 0 && lista[j] > chave) {
       lista[j + 1] = lista[j];
       j = j - 1;
-      lista[j+1] = chave;
+      lista[j + 1] = chave;
     }
   }
 }
 
+// --- dividir para conquistar ---
+
+function MergeSort(lista, p = 0, r = lista.length - 1) {
+  if (p < r) {
+    const q = Math.floor((p + r) / 2);
+    MergeSort(lista, p, q);
+    MergeSort(lista, q + 1, r);
+    Mesclar(lista, p, q, r);
+  }
+}
+
+function Mesclar(lista, p, q, r) {
+  const n1 = q - p + 1;
+  const n2 = r - q;
+
+  const L = [];
+  const R = [];
+  for (let i = 0; i < n1; i++) {
+    L[i] = lista[p + i];
+  }
+  for (let j = 0; j < n2; j++) {
+    R[j] = lista[q + 1 + j];
+  }
+  L[n1] = 1000;
+  R[n2] = 1000;
+  let i = 0;
+  let j = 0;
+  for (let k = p; k <= r; k++) {
+    if (L[i] < R[j]) {
+      lista[k] = L[i];
+      i++;
+    } else {
+      lista[k] = R[j];
+      j++;
+    }
+  }
+}
+
+MergeSort(lista);
 console.log(lista);
