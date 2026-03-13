@@ -55,7 +55,6 @@ function MergeSort(lista, p = 0, r = lista.length - 1) {
     Mesclar(lista, p, q, r);
   }
 }
-
 function Mesclar(lista, p, q, r) {
   const n1 = q - p + 1;
   const n2 = r - q;
@@ -83,5 +82,43 @@ function Mesclar(lista, p, q, r) {
   }
 }
 
-MergeSort(lista);
+
+function QuickSort(lista, p = 0, r = lista.length - 1){
+  if(p<r){
+    const q = Particionar(lista, p, r);
+    QuickSort(lista, p, q-1);
+    QuickSort(lista, q+1, r);
+  }
+}
+function Particionar(lista, p, r) {
+  // 1. Seleciona índice aleatório no intervalo [p, r]
+  const i = Math.floor(Math.random() * (r - p + 1)) + p;
+  
+  // 2. Troca A[i] com A[r] (pivô vai para o final)
+  const temp = lista[r];
+  lista[r] = lista[i];
+  lista[i] = temp;
+  
+  // Agora, pivô está em lista[r], faz o particionamento
+  const pivot = lista[r];
+  let j = p - 1;
+  
+  for (let k = p; k < r; k++) {
+    if (lista[k] <= pivot) {
+      j++;
+      const swapTemp = lista[j];
+      lista[j] = lista[k];
+      lista[k] = swapTemp;
+    }
+  }
+  
+  // Coloca pivô na posição correta
+  const finalTemp = lista[j + 1];
+  lista[j + 1] = lista[r];
+  lista[r] = finalTemp;
+  
+  return j + 1; // Retorna índice do pivô posicionado
+}
+
+QuickSort(lista);
 console.log(lista);
