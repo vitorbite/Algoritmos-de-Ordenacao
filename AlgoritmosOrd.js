@@ -40,8 +40,8 @@ function insertionSort(lista) {
     while (j >= 0 && lista[j] > chave) {
       lista[j + 1] = lista[j];
       j = j - 1;
-      lista[j + 1] = chave;
     }
+    lista[j + 1] = chave;
   }
 }
 
@@ -119,6 +119,9 @@ function Particionar(lista, p, r) {
   
   return j + 1; // Retorna índice do pivô posicionado
 }
+
+
+
 
 QuickSort(lista);
 console.log(lista);
